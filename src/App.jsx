@@ -15,6 +15,10 @@ function App() {
 
   const handleInputOnChange = (event) => {
     const { value } = event.target;
+    if (value === '') {
+      setUsers(userData);
+      return;
+    }
     const newState = { ...filter, name: value };
     setFilter(newState);
     filterUsers();
