@@ -1,9 +1,8 @@
 import React from 'react';
 
-const User = ({ user }) => {
-
+const User = ({ user, handleShowModal }) => {
   return (
-    <div className="user">
+    <div className="user" onClick={handleShowModal}>
       <p>Name: {user.name}</p>
       <p>Age: {user.age}</p>
       <p>Gender: {user.gender}</p>
