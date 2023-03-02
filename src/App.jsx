@@ -25,6 +25,10 @@ function App() {
   };
   const handleSortOnChange = (event) => {
     const { value } = event.target;
+    if (value === 'default') {
+      setUsers(userData);
+      return;
+    }
     const newState = { ...filter, sort: value };
     setFilter(newState);
     filterUsers();
@@ -35,7 +39,7 @@ function App() {
     const sortValue = filter.sort;
     const newUsers = userData
       .filter((user) => user.name.toLocaleLowerCase().includes(nameToLowerCase))
-      .sort((a, b) => (sortValue === 'asc' ? a.age - b.age : b.age - a.age));
+      .sort((a, b) => (sortValue === 'desc' ? a.age - b.age : b.age - a.age));
     setUsers(newUsers);
   };
 
@@ -63,8 +67,8 @@ function App() {
         />
         <select onChange={handleSortOnChange}>
           <option value="default">Default</option>
-          <option value="asc">Asc</option>
-          <option value="desk">Desk</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
         </select>
       </header>
       <div className="users-list">
