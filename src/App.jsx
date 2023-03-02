@@ -3,10 +3,11 @@ import './App.css';
 import userData from './userData.js';
 import User from './User';
 import Modal from './Modal';
+import Header from './Header';
 
 function App() {
-  const [users, setUsers] = useState(userData);
-  const [filter, setFilter] = useState({
+ const [users, setUsers] = useState(userData);
+ const [filter, setFilter] = useState({
     name: '',
     sort: 'default',
   });
@@ -58,19 +59,10 @@ function App() {
       {isShowModal ? (
         <Modal handleCloseModal={handleCloseModal} user={modalUser} />
       ) : null}
-      <header className="header">
-        <input
-          type="text"
-          placeholder="Enter name..."
-          className="header_input"
-          onChange={handleInputOnChange}
-        />
-        <select onChange={handleSortOnChange}>
-          <option value="default">Default</option>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </header>
+      <Header
+        handleInputOnChange={handleInputOnChange}
+        handleSortOnChange={handleSortOnChange}
+      />
       <div className="users-list">
         {users.map((user) => (
           <User user={user} handleShowModal={() => handleShowModal(user)} />
