@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import userData from './userData.js';
 import User from './User';
@@ -6,33 +6,33 @@ import Modal from './Modal';
 import Header from './Header';
 
 function App() {
- const [users, setUsers] = useState(userData);
- const [filter, setFilter] = useState({
+  const [users, setUsers] = useState(userData);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [modalUser, setModalUser] = useState(null);
+  const [filter, setFilter] = useState({
     name: '',
     sort: 'default',
   });
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [modalUser, setModalUser] = useState(null);
+
+  useEffect(() => {
+    filterUsers();
+  }, [filter]);
+
+  useEffect(() => {
+    if (!isShowModal) {
+      setModalUser(null)
+    }
+  },[isShowModal])
 
   const handleInputOnChange = (event) => {
     const { value } = event.target;
-    if (value === '') {
-      setUsers(userData);
-      return;
-    }
     const newState = { ...filter, name: value };
     setFilter(newState);
-    filterUsers();
   };
   const handleSortOnChange = (event) => {
     const { value } = event.target;
-    if (value === 'default') {
-      setUsers(userData);
-      return;
-    }
     const newState = { ...filter, sort: value };
     setFilter(newState);
-    filterUsers();
   };
 
   const filterUsers = () => {
@@ -51,8 +51,8 @@ function App() {
 
   const handleCloseModal = () => {
     setIsShowModal(false);
-    setModalUser(null);
   };
+
 
   return (
     <div className="container">
@@ -65,7 +65,10 @@ function App() {
       />
       <div className="users-list">
         {users.map((user) => (
-          <User user={user} handleShowModal={() => handleShowModal(user)} />
+          <User
+            user={user}
+            handleShowModal={() => handleShowModal(user)}
+          />
         ))}
       </div>
     </div>
