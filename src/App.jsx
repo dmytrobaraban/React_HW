@@ -15,14 +15,19 @@ function App() {
   });
 
   useEffect(() => {
-    filterUsers();
+    const nameToLowerCase = filter.name.toLowerCase();
+    const sortValue = filter.sort;
+    const newUsers = userData
+      .filter((user) => user.name.toLocaleLowerCase().includes(nameToLowerCase))
+      .sort((a, b) => (sortValue === 'desc' ? a.age - b.age : b.age - a.age));
+    setUsers(newUsers);
   }, [filter]);
 
   useEffect(() => {
     if (!isShowModal) {
-      setModalUser(null)
+      setModalUser(null);
     }
-  },[isShowModal])
+  }, [isShowModal]);
 
   const handleInputOnChange = (event) => {
     const { value } = event.target;
@@ -35,15 +40,6 @@ function App() {
     setFilter(newState);
   };
 
-  const filterUsers = () => {
-    const nameToLowerCase = filter.name.toLowerCase();
-    const sortValue = filter.sort;
-    const newUsers = userData
-      .filter((user) => user.name.toLocaleLowerCase().includes(nameToLowerCase))
-      .sort((a, b) => (sortValue === 'desc' ? a.age - b.age : b.age - a.age));
-    setUsers(newUsers);
-  };
-
   const handleShowModal = (user) => {
     setIsShowModal(true);
     setModalUser(user);
@@ -52,7 +48,6 @@ function App() {
   const handleCloseModal = () => {
     setIsShowModal(false);
   };
-
 
   return (
     <div className="container">
@@ -65,10 +60,7 @@ function App() {
       />
       <div className="users-list">
         {users.map((user) => (
-          <User
-            user={user}
-            handleShowModal={() => handleShowModal(user)}
-          />
+          <User user={user} handleShowModal={() => handleShowModal(user)} />
         ))}
       </div>
     </div>
