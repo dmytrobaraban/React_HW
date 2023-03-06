@@ -3,46 +3,44 @@
   margin: 100px auto;
 }
 
-.users-list{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.user {
-  max-width: 200px;
-  height: 400px;
-  border: 2px solid #CECECE;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  padding: 20px;
-}
-
-.header{
-  text-align: center;
-  margin-bottom: 40px;  
-}
-
-.header_input{
-  padding: 10px 20px;
-}
-
-.modal {
-  position: absolute;
-  z-index: 9999;
+.btn{
   display: flex;
-  justify-content: center;
+  margin: 10px;
+}
+
+button {
+  display: flex;
   align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+  border-radius: 30px;
+  border: 1px solid #8F9092;
+  transition: all 0.2s ease;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #606060;
+  text-shadow: 0 1px #fff;
+  margin: 10px;
 }
 
-.modal_container {
-  width: 300px;
-  height: 300px;
-  background-color: aliceblue;
+button:hover {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
 }
 
-.modal_container li {
+button:active {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+button:focus {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+li {
   list-style: none;
+  font-size: 20px;
 }
