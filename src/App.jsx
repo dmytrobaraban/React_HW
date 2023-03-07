@@ -2,35 +2,48 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const [time, setTime] = useState(0); // час в секундах
-  const [timerOn, setTimerOn] = useState(false);
-  const [savedTimes, setSavedTimes] = useState([]);
+  const [time, setTime] = useState(0);
+  const [timerOn, setTimer] = useState(false);
+  const [savesTime, setSavesTime] = useState([]);
+
+  const soundStart = new Audio(
+    'https://cdn.videvo.net/videvo_files/audio/premium/audio0086/watermarked/el_interface_button_22_hpx_preview.mp3'
+  );
+  const soundStop = new Audio(
+    'https://cdn.videvo.net/videvo_files/audio/premium/audio0086/watermarked/el_interface_click_13_hpx_preview.mp3'
+  );
+  const soundReset = new Audio(
+    'https://cdn.videvo.net/videvo_files/audio/premium/audio0038/watermarked/Babylon5DoorButto%20PE1090302_preview.mp3'
+  );
 
   useEffect(() => {
     let interval = null;
     if (timerOn) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 1); // зменшуємо час на 1 секунду
+        setTime((prevTime) => prevTime - 1);
       }, 1000);
     } else {
-      clearInterval(interval); // зупиняємо таймер
+      clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [timerOn]);
+  });
 
-  const startTimer = () => {
-    setTimerOn(true);
+  const timerStart = () => {
+    soundStart.play();
+    setTimer(true);
   };
 
-  const stopTimer = () => {
-    setSavedTimes([...savedTimes, time]);
-    setTimerOn(false);
+  const timerStop = () => {
+    soundStop.play();
+    setSavesTime([...savesTime, time]);
+    setTimer(false);
   };
 
   const resetTimer = () => {
+    soundReset.play();
+    timerStop();
     setTime(0);
-    setTimerOn(false);
-    setSavedTimes([]);
+    setSavesTime([]);
   };
 
   // конвертуємо час у формат HH:MM:SS
@@ -49,19 +62,18 @@ function App() {
 
   return (
     <div className="container">
-      <h2>{formatTime(time)}</h2>
+      <h1>{formatTime(time)}</h1>
       <div className="btn">
-        {!timerOn && <button onClick={startTimer}>Start</button>}
-        {timerOn && <button onClick={stopTimer}>Stop</button>}
-        <button onClick={resetTimer}>Reset</button>
+        {!timerOn && <button onClick={timerStart}>start</button>}
+        {timerOn && <button onClick={timerStop}>stop</button>}
+        <button onClick={resetTimer}>reset</button>
       </div>
       <div className="btn">
         <button onClick={() => setTime(60)}>1 minute</button>
-
         <button onClick={() => setTime(180)}>3 minute</button>
       </div>
       <ul>
-        {savedTimes.map((time, index) => (
+        {savesTime.map((time, index) => (
           <li key={index}>{formatTime(time)}</li>
         ))}
       </ul>
