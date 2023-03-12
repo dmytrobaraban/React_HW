@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext } from 'react';
 import { RegistrationContext } from '../../containers/RegistrationForm';
 
@@ -15,6 +14,7 @@ import {
 } from '../Input/Input';
 
 const Step1 = () => {
+
   return (
     <div>
       <h3>Ім'я</h3>
@@ -41,9 +41,18 @@ const Step2 = () => {
 };
 
 const Step3 = () => {
+  const { state } = useContext(RegistrationContext);
   return (
     <div>
       <InputPhoto />
+      {state.photo && (
+        <div
+          className="photo"
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(state.photo)})`,
+          }}
+        ></div>
+      )}
     </div>
   );
 };

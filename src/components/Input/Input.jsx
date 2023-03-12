@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { RegistrationContext } from '../../containers/RegistrationForm';
 import './style.css';
 
@@ -63,7 +63,7 @@ const InputStreet = () => {
 };
 
 const InputHouse = () => {
-    const { state, handleFieldChange } = useContext(RegistrationContext);
+  const { state, handleFieldChange } = useContext(RegistrationContext);
 
   return (
     <input
@@ -83,19 +83,17 @@ const InputPhoto = () => {
         id="file"
         onChange={(e) => handleFieldChange('photo', e.target.files[0])}
       />
-      <label for="file" class="btn-1">
-        Upload Photo
-      </label>
+      <label htmlFor="file">Upload Photo</label>
     </>
   );
-}
+};
 
 const InputPassword = () => {
   const { state, handleFieldChange } = useContext(RegistrationContext);
 
   return (
     <input
-      type="text"
+      type="password"
       value={state.password}
       onChange={(e) => handleFieldChange('password', e.target.value)}
     />
@@ -107,14 +105,12 @@ const InputConfirm = () => {
 
   return (
     <input
-      type="text"
+      type="password"
       value={state.confirm}
       onChange={(e) => handleFieldChange('confirm', e.target.value)}
     />
   );
 };
-
-
 
 export {
   InputName,

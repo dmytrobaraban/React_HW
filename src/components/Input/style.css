@@ -2,12 +2,18 @@ input {
     width: 100%;
     padding: 10px 0;
     margin-bottom: 40px;
+    font-size: 16px;
+    text-indent: 20px;
 }
 
 input[type = 'file'] {
     height: 0;
     overflow: hidden;
     width: 0;
+}
+
+input::placeholder{
+    padding-left: 10px;
 }
 
 input[type='file'] +label {

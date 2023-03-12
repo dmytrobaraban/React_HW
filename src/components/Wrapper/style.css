@@ -47,9 +47,6 @@ h4{
     background-size: contain;
 }
 
-.photo > img{
-    object-fit: contain;
-}
 
 .info{
     text-align: left;

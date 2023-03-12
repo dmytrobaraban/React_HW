@@ -2,10 +2,10 @@ import React, { useReducer } from 'react';
 import Header from '../components/Header/Header';
 import { Step1, Step2, Step3, Step4, Step5 } from '../components/Steps/Step';
 
-// Создаем контекст
+// Створюємо контекст
 export const RegistrationContext = React.createContext();
 
-// Инициализируем начальное состояние
+// Ініціюємо початковий стан
 const initialState = {
   step: 1,
   firstName: '',
@@ -18,7 +18,7 @@ const initialState = {
   password: '',
   confirm: '',
 };
-// Создаем редуктор
+// Створюємо  reducer
 function registrationReducer(state, action) {
   switch (action.type) {
     case 'NEXT_STEP':
@@ -39,21 +39,21 @@ function registrationReducer(state, action) {
   }
 }
 
-function RegistrationPage() {
-  // Используем useReducer для управления состоянием
+const RegistrationPage = () => {
+  // Створюємо useReducer для керування станом
   const [state, dispatch] = useReducer(registrationReducer, initialState);
 
-  // Обработчик изменения поля формы
+  // Обробник змін поля форми
   const handleFieldChange = (field, value) => {
     dispatch({ type: 'UPDATE_FIELD', field, value });
   };
 
-  // Обработчик перехода на следующий шаг
+  // Обробник переходу на наступний крок
   const handleNextStep = () => {
     dispatch({ type: 'NEXT_STEP' });
   };
 
-  // Обработчик перехода на предыдущий шаг
+  // Обробник переходу на попередній крок
   const handlePrevStep = () => {
     dispatch({ type: 'PREV_STEP' });
   };
@@ -62,7 +62,9 @@ function RegistrationPage() {
     dispatch({ type: 'SUMBIT/SET' });
   };
 
-  // Рендерим страницу в зависимости от текущего шага
+
+// Рендерим сорінку у залежності від поточного кроку
+
   return (
     <RegistrationContext.Provider value={{ state, handleFieldChange }}>
       <div>
