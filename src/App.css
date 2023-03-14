@@ -1,11 +1,15 @@
 .container{
-  width: 1200px;
+  width: 500px;
   margin: 100px auto;
 }
 
 .btn{
   display: flex;
   margin: 10px;
+}
+
+h1{
+  text-align: center;
 }
 
 button {
@@ -40,7 +44,13 @@ button:focus {
   box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
 }
 
+ul {
+  text-align: center;
+  padding-left: 0;
+}
+
 li {
   list-style: none;
   font-size: 20px;
+
 }
