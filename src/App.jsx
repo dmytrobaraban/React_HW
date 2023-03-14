@@ -38,21 +38,6 @@ function App() {
     }
   }, [timerOn, time]);
 
-  useEffect(() => {
-    // Отримуємо збережені дані з локального сховища
-    const savedTime = localStorage.getItem('savedTimes');
-    if (savedTime) {
-      // Парсимо рядок JSON в масив
-      setSavesTime(JSON.parse(savedTime));
-    }
-  }, []);
-
-  // Функція, яка зберігає час у локальному сховищі
-  const saveTime = (time) => {
-    // Конвертуємо масив у рядок JSON та зберігаємо його в локальному сховищі
-    localStorage.setItem('savedTimes', JSON.stringify([...savesTime, time]));
-  };
-
   const timerStart = (time) => {
     setTimer(true);
     soundStart.play();
@@ -67,7 +52,6 @@ function App() {
   const timerStop = () => {
     setTimer(false);
     setSavesTime([...savesTime, time]);
-    saveTime();
     setStopped(true);
     soundStop.play();
   };
