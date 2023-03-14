@@ -38,7 +38,14 @@ function App() {
     }
   }, [timerOn, time]);
 
-  const timerStart = (time) => {
+  useEffect(() => {
+    const savedTime = localStorage.getItem('savedTimes');
+    if (savedTime) {
+      setSavesTime(JSON.parse(savedTime));
+    }
+  }, []);
+
+  const timerStart = () => {
     setTimer(true);
     soundStart.play();
   };
@@ -58,6 +65,8 @@ function App() {
 
   const resetTimer = () => {
     setTimer(false);
+    const newArray = [...savesTime]; // зберігаємо поточний список за сесію (до reset)
+    localStorage.setItem('savedTimes', JSON.stringify(newArray)); //записуємо в localstorage 
     setTime(0);
     setSavesTime([]);
     setIsReset(true);
