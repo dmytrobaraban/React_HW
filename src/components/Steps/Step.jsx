@@ -1,43 +1,23 @@
 import React, { useContext } from 'react';
 import { RegistrationContext } from '../../containers/RegistrationForm';
+import './style.css';
 
 import {
-  InputName,
-  InputLastName,
-  InputEmail,
-  InputCity,
-  InputStreet,
-  InputHouse,
+  InputsFirstPage,
+  InputsSecondPage,
   InputPhoto,
-  InputPassword,
-  InputConfirm,
+  InputsPassword,
 } from '../Input/Input';
 
 const Step1 = () => {
-
-  return (
-    <div>
-      <h3>Ім'я</h3>
-      <InputName />
-      <h3>Прізвище</h3>
-      <InputLastName />
-      <h3>Email</h3>
-      <InputEmail />
-    </div>
-  );
+    const validateName = (firstName) => {
+    return firstName.length >= 5;
+  };
+  return <InputsFirstPage validateName={validateName} />;
 };
 
 const Step2 = () => {
-  return (
-    <div>
-      <h3>Місто</h3>
-      <InputCity />
-      <h3>Вулиця</h3>
-      <InputStreet />
-      <h3>Будинок</h3>
-      <InputHouse />
-    </div>
-  );
+  return <InputsSecondPage />;
 };
 
 const Step3 = () => {
@@ -58,14 +38,7 @@ const Step3 = () => {
 };
 
 const Step4 = () => {
-  return (
-    <div>
-      <h3>Пороль</h3>
-      <InputPassword />
-      <h3>Підтвердіть пароль</h3>
-      <InputConfirm />
-    </div>
-  );
+  return <InputsPassword />;
 };
 
 const Step5 = () => {
@@ -80,16 +53,16 @@ const Step5 = () => {
           }}
         ></div>
       )}
-        <h4>Контактна інформація</h4>
-        <ul className="info">
-          <li>Ім'я: {state.firstName} </li>
-          <li>Ім'я: {state.lastName} </li>
-          <li>Ім'я: {state.email} </li>
-          <li>Ім'я: {state.city} </li>
-          <li>Ім'я: {state.street} </li>
-          <li>Ім'я: {state.house} </li>
-        </ul>
-      </div>
+      <h4>Контактна інформація</h4>
+      <ul className="info">
+        <li>Ім'я: {state.firstName} </li>
+        <li>Ім'я: {state.lastName} </li>
+        <li>Ім'я: {state.email} </li>
+        <li>Ім'я: {state.city} </li>
+        <li>Ім'я: {state.street} </li>
+        <li>Ім'я: {state.house} </li>
+      </ul>
+    </div>
   );
 };
 

@@ -1,76 +1,65 @@
 import React, { useContext, useState } from 'react';
 import { RegistrationContext } from '../../containers/RegistrationForm';
-import './style.css';
 
-const InputName = () => {
+const InputsFirstPage = ({ validateName }) => {
   const { state, handleFieldChange } = useContext(RegistrationContext);
+  const [nameError, setNameError] = useState('');
+
+  const handleInputName = (e) => {
+    const value = e.target.value;
+    if (validateName(value)) {
+      setNameError('');
+    } else {
+      setNameError('Поле має містити не менше 5 символів');
+    }
+    handleFieldChange('firstName', value);
+  };
 
   return (
-    <input
-      type="text"
-      value={state.firstName}
-      onChange={(e) => handleFieldChange('firstName', e.target.value)}
-    />
+    <>
+      <h3>Ім'я</h3>
+      {nameError && <span>{nameError}</span>}
+      <input type="text" value={state.firstName} onChange={handleInputName} />
+      <h3>Прізвище</h3>
+      <input
+        type="text"
+        value={state.lastName}
+        onChange={(e) => handleFieldChange('lastName', e.target.value)}
+      />
+      <h3>Email</h3>
+      <input
+        type="email"
+        value={state.email}
+        onChange={(e) => handleFieldChange('email', e.target.value)}
+      />
+    </>
   );
 };
 
-const InputLastName = () => {
+const InputsSecondPage = () => {
   const { state, handleFieldChange } = useContext(RegistrationContext);
 
   return (
-    <input
-      type="text"
-      value={state.lastName}
-      onChange={(e) => handleFieldChange('lastName', e.target.value)}
-    />
-  );
-};
-
-const InputEmail = () => {
-  const { state, handleFieldChange } = useContext(RegistrationContext);
-
-  return (
-    <input
-      type="email"
-      value={state.email}
-      onChange={(e) => handleFieldChange('email', e.target.value)}
-    />
-  );
-};
-
-const InputCity = () => {
-  const { state, handleFieldChange } = useContext(RegistrationContext);
-
-  return (
-    <input
-      type="text"
-      value={state.city}
-      onChange={(e) => handleFieldChange('city', e.target.value)}
-    />
-  );
-};
-
-const InputStreet = () => {
-  const { state, handleFieldChange } = useContext(RegistrationContext);
-
-  return (
-    <input
-      type="text"
-      value={state.street}
-      onChange={(e) => handleFieldChange('street', e.target.value)}
-    />
-  );
-};
-
-const InputHouse = () => {
-  const { state, handleFieldChange } = useContext(RegistrationContext);
-
-  return (
-    <input
-      type="text"
-      value={state.house}
-      onChange={(e) => handleFieldChange('house', e.target.value)}
-    />
+    <>
+      <h3>Місто</h3>
+      <input
+        type="text"
+        value={state.city}
+        onChange={(e) => handleFieldChange('city', e.target.value)}
+      />
+      <h3>Вулиця</h3>
+      <input
+        type="text"
+        value={state.street}
+        onChange={(e) => handleFieldChange('street', e.target.value)}
+      />
+      <h3>Будинок</h3>
+      <input
+        type="text"
+        value={state.house}
+        onChange={(e) => handleFieldChange('house', e.target.value)}
+      />
+    </>
   );
 };
 
@@ -88,38 +77,25 @@ const InputPhoto = () => {
   );
 };
 
-const InputPassword = () => {
+const InputsPassword = () => {
   const { state, handleFieldChange } = useContext(RegistrationContext);
 
   return (
-    <input
-      type="password"
-      value={state.password}
-      onChange={(e) => handleFieldChange('password', e.target.value)}
-    />
+    <>
+      <h3>Пороль</h3>
+      <input
+        type="password"
+        value={state.password}
+        onChange={(e) => handleFieldChange('password', e.target.value)}
+      />
+      <h3>Підтвердіть пароль</h3>
+      <input
+        type="password"
+        value={state.confirm}
+        onChange={(e) => handleFieldChange('confirm', e.target.value)}
+      />
+    </>
   );
 };
 
-const InputConfirm = () => {
-  const { state, handleFieldChange } = useContext(RegistrationContext);
-
-  return (
-    <input
-      type="password"
-      value={state.confirm}
-      onChange={(e) => handleFieldChange('confirm', e.target.value)}
-    />
-  );
-};
-
-export {
-  InputName,
-  InputLastName,
-  InputEmail,
-  InputCity,
-  InputStreet,
-  InputHouse,
-  InputPhoto,
-  InputPassword,
-  InputConfirm,
-};
+export { InputsFirstPage, InputsSecondPage, InputPhoto, InputsPassword };
