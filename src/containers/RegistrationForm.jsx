@@ -6,7 +6,7 @@ import { Step1, Step2, Step3, Step4, Step5 } from '../components/Steps/Step';
 export const RegistrationContext = React.createContext();
 
 // Ініціюємо початковий стан
-const initialState = {
+export const initialState = {
   step: 1,
   firstName: '',
   lastName: '',
@@ -17,9 +17,14 @@ const initialState = {
   photo: null,
   password: '',
   confirm: '',
+  errors: {
+    firstName: '',
+    lastName: '',
+    email: '',
+  },
 };
 // Створюємо  reducer
-function registrationReducer(state, action) {
+export function registrationReducer(state, action) {
   switch (action.type) {
     case 'NEXT_STEP':
       return { ...state, step: state.step + 1 };
@@ -28,7 +33,23 @@ function registrationReducer(state, action) {
     case 'SUMBIT/SET':
       return { ...state, step: state.step + 1 };
     case 'UPDATE_FIELD':
-      return { ...state, [action.field]: action.value };
+      return {
+        ...state,
+        [action.field]: action.value,
+        errors: {
+          ...state.errors,
+          [action.field]: '',
+        },
+      };
+    case 'SET_ERROR':
+      const { fieldName, error } = action.payload;
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [fieldName]: error,
+        },
+      };
     case 'SET_PHOTO':
       return {
         ...state,
@@ -62,8 +83,7 @@ const RegistrationPage = () => {
     dispatch({ type: 'SUMBIT/SET' });
   };
 
-
-// Рендерим сорінку у залежності від поточного кроку
+  // Рендерим сорінку у залежності від поточного кроку
 
   return (
     <RegistrationContext.Provider value={{ state, handleFieldChange }}>
@@ -79,13 +99,15 @@ const RegistrationPage = () => {
             <button onClick={handlePrevStep}>Previous</button>
           )}
           {state.step !== 4 && state.step !== 5 && (
-            <button onClick={handleNextStep}>Next</button>
+            <button onClick={handleNextStep}>
+              Next
+            </button>
           )}
           {state.step === 4 && <button onClick={handleSubmit}>Sumbit</button>}
         </div>
       </div>
     </RegistrationContext.Provider>
   );
-}
+};
 
 export default RegistrationPage;

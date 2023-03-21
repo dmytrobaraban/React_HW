@@ -33,6 +33,6 @@ input[type='file'] +label {
     vertical-align: middle;
 }
 
-input[type='file']+label:hover {
-    background-color: darken(#f15d22, 10%);
+span {
+    color: #f15d22;
 }

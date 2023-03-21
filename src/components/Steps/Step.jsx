@@ -9,16 +9,26 @@ import {
   InputsPassword,
 } from '../Input/Input';
 
+
 const Step1 = () => {
   const validateName = (firstName) => {
     return firstName.length >= 2;
   };
 
-  const validateLastName = (firstName) => {
-    return firstName.length >= 3;
+  const validateLastName = (lastName) => {
+    return lastName.length >= 3;
   };
 
-  return <InputsFirstPage validate={{ validateName, validateLastName }} />;
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
+  return (
+    <InputsFirstPage
+      validate={{ validateName, validateLastName, validateEmail }}
+    />
+  );
 };
 
 const Step2 = () => {

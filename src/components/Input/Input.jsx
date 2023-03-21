@@ -1,17 +1,29 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { RegistrationContext } from '../../containers/RegistrationForm';
+import {
+  initialState,
+  registrationReducer,
+} from '../../containers/RegistrationForm';
 
 const InputsFirstPage = ({ validate }) => {
   const { state, handleFieldChange } = useContext(RegistrationContext);
-  const [nameError, setNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
+  const [errStates, dispatch] = useReducer(registrationReducer, initialState);
 
   const handleInputName = (e) => {
     const value = e.target.value;
     if (validate.validateName(value)) {
-      setNameError('');
+      dispatch({
+        type: 'SET_ERROR',
+        payload: { fieldName: 'firstName', error: '' },
+      });
     } else {
-      setNameError('Поле має містити не менше 2 символів');
+      dispatch({
+        type: 'SET_ERROR',
+        payload: {
+          fieldName: 'firstName',
+          error: 'Поле має містити не менше 2 символи',
+        },
+      });
     }
     handleFieldChange('firstName', value);
   };
@@ -19,31 +31,56 @@ const InputsFirstPage = ({ validate }) => {
   const handleInputlastName = (e) => {
     const value = e.target.value;
     if (validate.validateLastName(value)) {
-      setLastNameError('');
+      dispatch({
+        type: 'SET_ERROR',
+        payload: { fieldName: 'lastName', error: '' },
+      });
     } else {
-      setLastNameError('Поле має містити не менше 3 символів');
+      dispatch({
+        type: 'SET_ERROR',
+        payload: {
+          fieldName: 'lastName',
+          error: 'Поле має містити не менше 3 символів',
+        },
+      });
     }
     handleFieldChange('lastName', value);
+  };
+
+  const handleInputEmail = (e) => {
+    const value = e.target.value;
+    if (validate.validateEmail(value)) {
+      dispatch({
+        type: 'SET_ERROR',
+        payload: { fieldName: 'email', error: '' },
+      });
+    } else {
+      dispatch({
+        type: 'SET_ERROR',
+        payload: {
+          fieldName: 'email',
+          error: 'Введіть коректний email',
+        },
+      });
+    }
+    handleFieldChange('email', value);
   };
 
   return (
     <>
       <h3>Ім'я</h3>
-      {nameError && <span>{nameError}</span>}
+      {errStates.errors.firstName && <span>{errStates.errors.firstName}</span>}
       <input type="text" value={state.firstName} onChange={handleInputName} />
       <h3>Прізвище</h3>
-      {lastNameError && <span>{lastNameError}</span>}
+      {errStates.errors.lastName && <span>{errStates.errors.lastName}</span>}
       <input
         type="text"
         value={state.lastName}
         onChange={handleInputlastName}
       />
       <h3>Email</h3>
-      <input
-        type="email"
-        value={state.email}
-        onChange={(e) => handleFieldChange('email', e.target.value)}
-      />
+      {errStates.errors.email && <span>{errStates.errors.email}</span>}
+      <input type="email" value={state.email} onChange={handleInputEmail} />
     </>
   );
 };
