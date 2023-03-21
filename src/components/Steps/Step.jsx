@@ -10,10 +10,15 @@ import {
 } from '../Input/Input';
 
 const Step1 = () => {
-    const validateName = (firstName) => {
-    return firstName.length >= 5;
+  const validateName = (firstName) => {
+    return firstName.length >= 2;
   };
-  return <InputsFirstPage validateName={validateName} />;
+
+  const validateLastName = (firstName) => {
+    return firstName.length >= 3;
+  };
+
+  return <InputsFirstPage validate={{ validateName, validateLastName }} />;
 };
 
 const Step2 = () => {

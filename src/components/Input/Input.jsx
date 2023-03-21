@@ -1,18 +1,29 @@
 import React, { useContext, useState } from 'react';
 import { RegistrationContext } from '../../containers/RegistrationForm';
 
-const InputsFirstPage = ({ validateName }) => {
+const InputsFirstPage = ({ validate }) => {
   const { state, handleFieldChange } = useContext(RegistrationContext);
   const [nameError, setNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
 
   const handleInputName = (e) => {
     const value = e.target.value;
-    if (validateName(value)) {
+    if (validate.validateName(value)) {
       setNameError('');
     } else {
-      setNameError('Поле має містити не менше 5 символів');
+      setNameError('Поле має містити не менше 2 символів');
     }
     handleFieldChange('firstName', value);
+  };
+
+  const handleInputlastName = (e) => {
+    const value = e.target.value;
+    if (validate.validateLastName(value)) {
+      setLastNameError('');
+    } else {
+      setLastNameError('Поле має містити не менше 3 символів');
+    }
+    handleFieldChange('lastName', value);
   };
 
   return (
@@ -21,10 +32,11 @@ const InputsFirstPage = ({ validateName }) => {
       {nameError && <span>{nameError}</span>}
       <input type="text" value={state.firstName} onChange={handleInputName} />
       <h3>Прізвище</h3>
+      {lastNameError && <span>{lastNameError}</span>}
       <input
         type="text"
         value={state.lastName}
-        onChange={(e) => handleFieldChange('lastName', e.target.value)}
+        onChange={handleInputlastName}
       />
       <h3>Email</h3>
       <input
